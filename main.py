@@ -61,7 +61,11 @@ app.add_middleware(
 
 # Use resource_path for static and templates (bundled inside the app)
 app.mount("/static", StaticFiles(directory=resource_path("static")), name="static")
-templates = Jinja2Templates(directory=resource_path("templates"))
+
+# Fix for Python 3.14 / Jinja2 cache bug: Disable cache explicitly
+from jinja2 import Environment, FileSystemLoader
+jinja_env = Environment(loader=FileSystemLoader(resource_path("templates")), cache_size=0)
+templates = Jinja2Templates(env=jinja_env)
 
 # ═══════════════════════════════════════════════════════════════════════
 # Global State
