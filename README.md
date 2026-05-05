@@ -1,6 +1,6 @@
 # Quantum AI - Desktop UI
 
-This repository contains the professional web-based interface for the **Quantum Transformer (QT-4Q)**. It is built using FastAPI and Jinja2, designed to provide a high-fidelity environment for quantum-inspired AI research.
+This repository contains the professional web-based interface for the **Quantum Transformer**. It is built using FastAPI and Jinja2, designed to provide a high-fidelity environment for quantum-inspired AI research.
 
 ---
 ## 🎥 Demo Video
