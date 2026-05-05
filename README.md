@@ -42,4 +42,4 @@ The application will start at **http://127.0.0.1:8000**.
 🌐 **Website**: [www.harishapc.com](https://www.harishapc.com)  
 📩 **Contact**: [reach.harishapc@gmail.com](mailto:reach.harishapc@gmail.com)
 
-*Built by Harish APC - Advancing the frontier of Quantum AI.*
+*Built by Harisha P C - Advancing the frontier of Quantum AI.*
