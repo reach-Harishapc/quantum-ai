@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+jinja2
+torch
+tokenizers
+huggingface_hub
+quantum-transformer

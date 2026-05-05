@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum AI — Pretrained Model Interface</title>
+    <meta name="description"
+        content="Quantum-inspired Transformer pretrained model interface. Configure qubits, train models, and generate text.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- ═══ Sidebar ═══ -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">⚛️</div>
+                <h2>Quantum AI</h2>
+                <span class="version-badge">v0.1</span>
+            </div>
+
+            <!-- Model Selection -->
+            <div class="config-section">
+                <div class="section-title">Model Configuration</div>
+
+                <label for="qubit-slider">Qubits: <span id="qubit-value" class="value-highlight">4</span></label>
+                <input type="range" id="qubit-slider" class="range-slider" min="1" max="32" value="4">
+                <div class="range-labels">
+                    <span>1</span><span>8</span><span>16</span><span>24</span><span>32</span>
+                </div>
+
+                <label for="context-length">Context Length</label>
+                <select id="context-length" class="custom-select">
+                    <option value="64">64 tokens</option>
+                    <option value="128">128 tokens</option>
+                    <option value="256" selected>256 tokens</option>
+                    <option value="512">512 tokens</option>
+                    <option value="1024">1024 tokens</option>
+                </select>
+
+                <div class="setting-group">
+                    <label>Training Epochs: <span id="epoch-value">5</span></label>
+                    <input type="range" id="epoch-slider" min="1" max="20" value="5" step="1" class="custom-slider">
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="section-title">Inference Control</div>
+                <label for="temp-slider">Temperature: <span id="temp-value" class="value-highlight">0.7</span></label>
+                <input type="range" id="temp-slider" class="range-slider" min="0.1" max="2.0" step="0.1" value="0.7">
+                <div class="range-labels">
+                    <span>Precise</span><span>0.7</span><span>1.0</span><span>Creative</span>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="section-title">Training Mode</div>
+                <div class="mode-selector">
+                    <button id="mode-new" class="mode-btn active" title="Start fresh from zero weights">New</button>
+                    <button id="mode-continue" class="mode-btn" title="Continue from last checkpoint with same settings">Continue</button>
+                    <button id="mode-finetune" class="mode-btn" title="Specific tuning with lower learning rate">Fine-tune</button>
+                </div>
+
+                <div class="btn-group">
+                    <button id="load-model-btn" class="primary-btn">Load Model</button>
+                    <button id="train-model-btn" class="secondary-btn">Train New</button>
+                </div>
+            </div>
+
+            <!-- Training Progress (hidden by default) -->
+            <div id="training-panel" class="training-panel hidden">
+                <div class="section-title">Training Progress</div>
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+                </div>
+                <p id="training-status-text" class="training-text">Waiting...</p>
+            </div>
+
+            <!-- Circuit Visualizer -->
+            <div class="visualizer-section">
+                <div class="section-title">Quantum Circuit Layout</div>
+                <div id="circuit-visualizer" class="circuit-grid">
+                    <div class="empty-circuit">No model loaded</div>
+                </div>
+            </div>
+
+            <!-- Model Info -->
+            <div id="model-info-panel" class="model-info-panel">
+                <div class="section-title">Architecture</div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Parameters</span>
+                        <span id="info-params" class="info-value">—</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Hidden Dim</span>
+                        <span id="info-hidden" class="info-value">—</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Layers</span>
+                        <span id="info-layers" class="info-value">—</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Heads</span>
+                        <span id="info-heads" class="info-value">—</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">State Space</span>
+                        <span id="info-state" class="info-value">—</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">VQC Depth</span>
+                        <span id="info-depth" class="info-value">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="model-status">
+                <div id="status-dot" class="status-indicator offline"></div>
+                <span id="status-text">No model loaded</span>
+            </div>
+        </aside>
+
+        <!-- ═══ Main Chat ═══ -->
+        <main class="chat-interface">
+            <header class="chat-header">
+                <h1 id="active-model-title">Quantum Transformer</h1>
+                <p id="active-model-subtitle">Train or load a model to start generating</p>
+            </header>
+
+            <div id="chat-container" class="chat-container">
+                <div class="welcome-screen" id="welcome-screen">
+                    <div class="welcome-icon">⚛️</div>
+                    <h2>Quantum AI Interface</h2>
+                    <p>Configure qubits and context length, then train a model or load an existing one to begin.</p>
+                    <div class="welcome-steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <span>Set qubit count (1–32) and context length</span>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <span>Click <strong>Train New</strong> to pretrain a model</span>
+                        </div>
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <span>Chat with your quantum pretrained model</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <form id="chat-form">
+                    <input type="text" id="prompt-input" autocomplete="off" placeholder="Message Quantum AI..."
+                        required>
+                    <button type="submit" id="send-btn" class="send-btn" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

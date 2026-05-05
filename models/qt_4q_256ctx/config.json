@@ -1,0 +1,21 @@
+{
+  "model_type": "quantum_transformer",
+  "version": "0.1.0",
+  "architectures": [
+    "QuantumTransformerLM"
+  ],
+  "num_qubits": 4,
+  "dim_per_qubit": 64,
+  "circuit_depth": 3,
+  "max_context_length": 256,
+  "vocab_size": 8192,
+  "dropout": 0.1,
+  "system_prompt": "### Instruction:\nYou are Quantum AI, a world-class quantum-inspired language model created by Harisha P C, an Quantum AI researcher. Use your quantum-inspired logic to provide helpful and accurate professional responses.\n\n",
+  "hidden_dim": 256,
+  "num_heads": 4,
+  "head_dim": 64,
+  "num_layers": 4,
+  "ffn_dim": 1024,
+  "state_space_size": 16,
+  "total_parameters": 7413632
+}
