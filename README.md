@@ -31,6 +31,7 @@ You can download the latest pre-built binaries for Windows and macOS from the [R
 ## Support & Contact
 
 For technical queries, bug reports (for the binary), or collaboration requests:
-📩 **reach.harishapc@gmail.com**
+🌐 **Website**: [www.harishapc.com](https://www.harishapc.com)  
+📩 **Email**: [reach.harishapc@gmail.com](mailto:reach.harishapc@gmail.com)
 
 *Developed by Harish APC - Advancing the frontier of Quantum AI.*
